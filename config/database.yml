@@ -1,0 +1,10 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  host: localhost
+  port: 5433
+  username: oneirros2
+  database: oneirros2
+  password: <%= Rails.application.credentials.dig(:postgres, :password, :development) %=>
+

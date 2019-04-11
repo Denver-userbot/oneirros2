@@ -1,0 +1,8 @@
+{
+  "name": "oneirros2",
+  "private": true,
+  "dependencies": {
+    "jquery": "^3.3.1",
+    "uikit": "^3.0.3"
+  }
+}

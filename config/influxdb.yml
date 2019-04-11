@@ -1,0 +1,4 @@
+development:
+  database: oneirros
+  host: localhost
+  port: 8086
