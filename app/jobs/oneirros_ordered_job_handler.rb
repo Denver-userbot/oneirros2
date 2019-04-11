@@ -1,12 +1,26 @@
 require 'nokogiri'
 require 'mechanize'
 
-class RivalsAutologin < ApplicationJob
+class OneirrosOrderedJobHandler < ApplicationJob
   @queue = :oneirros_ordered
-  
-  def perform(rivals_id, rivals_hash, rivals_token, session_name = 'oneirros')
+ 
+  def perform(type, args = {}) 
+    if type == "autologin"
+      self.perform_autologin(args)
+    else
+      Rails.logger.info "Got unrecognized task type in ordered queue: #{type}"
+    end
+  end 
+ 
+  def perform_autologin(args = {})
     mecha = Mechanize.new
+    session_name = args.session_name || "oneirros"
     session_file = "tmp/mechasessions/#{session_name}"
+
+    # Load credentials for login
+    rivals_id = Rails.application.credentials.dig :rivals, :id
+    rivals_token = Rails.application.credentials.dig :rivals, :token
+    rivals_hash = Rails.application.credentials.dig :rivals, :hash
 
     # Check session first if we already have one
     if File.file?(session_file)
@@ -24,5 +38,6 @@ class RivalsAutologin < ApplicationJob
 
     # TODO: Add failure condition in case new login also fails (expired token, account banned?)
   end
+ 
 
 end
