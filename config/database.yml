@@ -6,5 +6,5 @@ development:
   port: 5433
   username: oneirros2
   database: oneirros2
-  password: <%= Rails.application.credentials.dig(:postgres, :password, :development) %=>
+  password: <%= Rails.application.credentials.dig(:postgres, :password, :development) %>
 
