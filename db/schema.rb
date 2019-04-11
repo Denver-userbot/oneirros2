@@ -10,22 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_09_130344) do
+ActiveRecord::Schema.define(version: 2019_04_11_214143) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "rival_regions", force: :cascade do |t|
-    t.bigint "rivalid"
-    t.string "name"
-    t.string "runame"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "rival_users", force: :cascade do |t|
-    t.integer "rivalid"
-    t.string "name"
+    t.bigint "rival_id"
+    t.string "name_ru"
+    t.string "name_en"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
