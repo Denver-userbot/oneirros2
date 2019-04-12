@@ -1,14 +1,14 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.3.1'
+ruby '2.5.5'
 
 gem 'rails', '~> 5.2.3'
 gem 'pg', '~> 1.1.4'
 gem 'puma', '~> 3.12.1'
 gem 'influxer', '~> 1.1.6'
+gem 'kimurai', '~> 1.4.0'
 gem 'rufus-scheduler', '~> 3.5.2'
-gem 'resque', '~> 2.0.0'
 gem 'haml', '~> 5.0.4'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
@@ -16,8 +16,6 @@ gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
-gem 'nokogiri', '~> 1.10'
-gem 'mechanize', '~> 2.7'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

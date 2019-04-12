@@ -4,7 +4,7 @@ require 'influxer'
 class RivalRegionMetrics < Influxer::Metrics
   set_series :region
   default_scope -> { time(:day).last(1) }
-  tags :rivalid
-  attributes :hospital, :militarybase, :school
-  validates :rivalid, presence: true
+  tags :rivals_id
+  attributes :hospital, :military_base, :school
+  validates :rivals_id, presence: true
 end 
