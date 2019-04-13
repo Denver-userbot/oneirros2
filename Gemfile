@@ -19,6 +19,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'babel-transpiler'
 gem 'jquery-datatables'
+gem 'apipie-rails', '~> 0.5.15'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
