@@ -1,8 +1,9 @@
 // Global variable overwrites go here
 
 $global-margin: 24px;
-$global-background: #323438;
-$global-emphasis-color: #f6f6f6;
+$global-background: #f6f6f6;
+$global-color: #111111;
+$global-emphasis-color: #000000;
 
 @import "uikit/src/scss/variables-theme.scss";
 @import "uikit/src/scss/mixins-theme.scss";

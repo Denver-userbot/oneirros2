@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+%html
+ %head
+  = render :partial => 'partials/scripts'
+ %body
+  = render :partial => 'partials/header'
+
+  %div.uk-container.uk-container-large
+   %table#dttb-regions
+    %thead
+     %tr
+      %td ID
+      %td Name
+      %td Citizens
+      %td Residents
+      %td Medical
+      %td Military
+      %td Education 
+      %td Development
+      %td Last Update
+    %tbody
+     - @results_by_id.values.each do |object|
+      %tr
+       %td= object[:id]
+       %td= object[:region][:name_en]
+       %td= object[:metrics]["citizens"]
+       %td= object[:metrics]["residents"]
+       %td= object[:metrics]["med_index"]
+       %td= object[:metrics]["mil_index"]
+       %td= object[:metrics]["edu_index"]
+       %td= object[:metrics]["dev_index"]
+       %td= object[:metrics]["time"]
+ 
