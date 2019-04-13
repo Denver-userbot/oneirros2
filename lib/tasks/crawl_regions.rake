@@ -17,6 +17,11 @@ namespace 'oneirros' do
         end
         sched.join
       end
+
+      desc "Bootstrap Region Data into ActiveRecord"
+      task :bootstrap => [:environment] do
+        RegionsBootstrapSpider.authed_parse!
+      end
     end
   end
 end

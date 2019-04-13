@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2019_04_11_214143) do
   enable_extension "plpgsql"
 
   create_table "rival_regions", force: :cascade do |t|
-    t.bigint "rival_id"
+    t.bigint "rivals_id"
     t.string "name_ru"
     t.string "name_en"
     t.datetime "created_at", null: false

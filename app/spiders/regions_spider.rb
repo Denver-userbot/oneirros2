@@ -60,8 +60,8 @@ class RegionsSpider < Kimurai::Base
       row.search('td').each do |col|
         colname = ru_map[header.next]
         colval = col.text.squish
-        if colname == "isautonomy"
-          rowhash[colname] = @ru_map[colval]
+        if colname == "is_autonomy"
+          rowhash[colname] = ru_map[colval]
         elsif colname == "name"
           rowhash["rivals_id"] = colval.split(':').last.squish.to_i
         else
@@ -74,7 +74,7 @@ class RegionsSpider < Kimurai::Base
         end
       end
 
-      RivalRegionMetrics.write(rowhash.slice("rivals_id", "hospital", "military_base", "school"))
+      RivalRegionMetrics.write(rowhash)
     end
   end 
 
