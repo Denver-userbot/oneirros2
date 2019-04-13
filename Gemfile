@@ -16,7 +16,6 @@ gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
-gem 'fast_jsonapi', '~> 1.5'
 gem 'active_model_serializers', '~> 0.10.0'
 
 group :development, :test do
