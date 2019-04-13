@@ -3,7 +3,15 @@
  %head
   = render :partial => 'partials/scripts'
  %body
+  = render :partial => 'partials/header'
+
   %div.uk-container
-   %nav.uk-navbar-container.uk-margin{"uk-navbar" => ""}
-    %div.uk-navbar-left
-     %a.uk-navbar-item.uk-logo OneiRRos
+   %div.uk-section.uk-section-default
+    %h1.uk-heading-primary.uk-heading-divider Welcome
+    %h2
+     %span
+      %strong.oneirros-title-font.uk-heading-primary OneiRRos
+      &nbsp;
+     is a platform for Rival Regions enhancement in development.
+    %button.uk-button.uk-button-primary.uk-button-large Login
+    %button.uk-button.uk-button-secondary.uk-button-large Register

@@ -1,0 +1,8 @@
+@font-face { 
+  font-family: 'Chocolate Covered Raindrops Bold';
+  src: url(/assets/chocolate-covered-raindrops-bold.ttf) format('truetype');
+}
+
+.oneirros-title-font {
+  font-family: 'Chocolate Covered Raindrops Bold';
+}

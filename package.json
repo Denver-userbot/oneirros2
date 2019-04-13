@@ -2,7 +2,10 @@
   "name": "oneirros2",
   "private": true,
   "dependencies": {
-    "jquery": "^3.3.1",
+    "jquery": "^3.3.1"
+  },
+  "devDependencies": {
+    "sass": "^1.18.0",
     "uikit": "^3.0.3"
   }
 }
