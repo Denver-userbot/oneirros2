@@ -6,4 +6,5 @@ class RivalRegion < ApplicationRecord
   attribute :rivals_id, :big_integer
 
   has_metrics :metrics, foreign_key: :rivals_id
+  attr_accessor :metrics_cached
 end
