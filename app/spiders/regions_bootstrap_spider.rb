@@ -1,10 +1,9 @@
 require 'kimurai'
-require 'pp'
 
 class RegionsBootstrapSpider < RivalRegionsAuthedSpider
   @engine = :mechanize
   @authed_url = "http://rivalregions.com/info/regions"
- 
+
   def parse_authed(response, url:, data: {})
     skipfirst = true
     response.css('tr').each do |row|

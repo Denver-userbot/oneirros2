@@ -1,14 +1,10 @@
 require 'kimurai'
 
-class RegionsSpider < Kimurai::Base
+class RegionsSpider < RivalRegionsAuthedSpider
   @engine = :mechanize
-  @start_urls = [ "http://rivalregions.com/slide/profile/0" ]
+  @authed_url = "http://rivalregions.com/info/regions"
 
-  def login(response, url:, data: {})
-    #  Nothing to do ? Spider keeps session cookies.
-  end
-
-  def regions(response, url:, data: {})
+  def parse_authed(response, url:, data: {})
 
   ru_map = {
         "РЕГИОН" => "name",
@@ -77,26 +73,5 @@ class RegionsSpider < Kimurai::Base
       RivalRegionMetrics.write(rowhash)
     end
   end 
-
-  def parse(response, url:, data: {}) 
-    # Check if we are logged out
-    logged_out = /Session expired, please, reload the page/ =~ response.css("script").text
-    if not logged_out.nil?
-        rivals_id = Rails.application.credentials.dig :rivals, :id
-        rivals_token = Rails.application.credentials.dig :rivals, :token
-        rivals_hash = Rails.application.credentials.dig :rivals, :hash
-      	request_to :login, url: "http://rivalregions.com/?viewer_id=#{rivals_id}&id=#{rivals_id}&access_token=#{rivals_token}&hash=#{rivals_hash}"
-    end
-    
-    if url == "http://rivalregions.com/info/regions"
-      self.regions(response, url, data)
-    else
-      request_to :regions, url: "http://rivalregions.com/info/regions"
-    end
-  end
-
-  def go
-    request_to :parse, url: "http://rivalregions.com/info/regions"
-  end
 
 end

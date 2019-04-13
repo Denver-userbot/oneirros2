@@ -3,18 +3,21 @@ require 'rufus-scheduler'
 namespace 'oneirros' do
   namespace 'spider' do
     namespace 'regions' do 
-      desc "Crawl Realtime Region Data into InfluxDB once"
+      desc "Parse Realtime Region Data into InfluxDB once"
       task :once => [:environment] do
-        RegionsSpider.crawl!
+        RegionsSpider.authed_parse!
       end
 
-      desc "Start Crawling Region Data periodically"
+      desc "Start Parsing Region Data periodically"
       task :daemon => [:environment] do
         sched = Rufus::Scheduler.new
         spider = RegionsSpider.new
-        scheduler.every '5m' do 
+        spider.auth
+        
+        sched.every '10m' do 
           spider.go
         end
+
         sched.join
       end
 
