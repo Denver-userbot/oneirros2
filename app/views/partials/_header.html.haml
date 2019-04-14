@@ -1,18 +1,23 @@
 %div.uk-container
  %nav.uk-navbar-container.uk-margin{"uk-navbar" => ""}
   %div.uk-navbar-left.uk-dark
-   %a.uk-navbar-item.uk-logo.oneirros-title-font{"href" => "/"}
-    OneiRRos
+   %a.uk-navbar-item.uk-logo{"href" => "/"}
+    %h1
+     %strong.oneirros-title-font OneiRRos
    %ul.uk-navbar-nav
     %li
-     %a{"href" => "#"} Data
-     %div.uk-navbar-dropdown
+     %a.uk-margin-medium-left{"href" => "#"}
+      %span{"uk-navbar-toggle-icon" => ""}
+      %span.uk-margin-small-left 
+       %strong Data
+     %div.uk-navbar-dropdown{"mode" => "click"}
       %ul.uk-nav.uk-navbar-dropdown-nav
        %li 
         %a{"href" => "/regions"} 
-         Regions
+         %strong Regions
        %li
         %a{"href" => "/resources"}
-         Market
+         %strong Market
     %li
-     %a{"href" => "/apipie"} API
+     %a{"href" => "/apipie"} 
+      %strong API
