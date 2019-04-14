@@ -31,5 +31,7 @@
        %td= object[:metrics]["mil_index"]
        %td= object[:metrics]["edu_index"]
        %td= object[:metrics]["dev_index"]
-       %td= object[:metrics]["time"]
+       %td 
+        = distance_of_time_in_words(DateTime.parse(object[:metrics]["time"]), DateTime.now, include_seconds: true)
+        ago
  
