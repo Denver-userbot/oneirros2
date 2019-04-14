@@ -10,15 +10,7 @@ namespace 'oneirros' do
 
       desc "Start Parsing Region Data periodically"
       task :daemon => [:environment] do
-        sched = Rufus::Scheduler.new
-        spider = RegionsSpider.new
-        spider.auth
-        
-        sched.every '10m' do 
-          spider.go
-        end
-
-        sched.join
+        AuthedBulkWorker.new(RegionsSpider, '5m').join
       end
 
       desc "Bootstrap Region Data into ActiveRecord"
