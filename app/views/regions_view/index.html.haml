@@ -6,12 +6,12 @@
   = render :partial => 'partials/header'
 
   %div.uk-container.uk-container-large
-   %table#dttb-regions.display.compact.order-column.stripe.hover
+   %table#dttb-regions.display.compact.order-column.stripe.hover.dt-responsive.no-wrap
     %thead
      %tr
-      %th{"colspan" => 2, "rowspan" => 2} Name
-      %th{"colspan" => 2} Citizens
-      %th{"colspan" => 4} Indices
+      %th{"colspan" => 2, "rowspan" => 2, "data-priority" => 10} Name
+      %th{"colspan" => 2, "data-priority" => 3} Citizens
+      %th{"colspan" => 4, "data-priority" => 2} Indices
      %tr
       %th Citizens
       %th Residents
@@ -19,7 +19,7 @@
       %th Military
       %th Education 
       %th Development
-      %th Last Update
+      %th{"data-priority" => 0} Last Update
     %tbody
      - @results_by_id.values.each do |object|
       %tr
