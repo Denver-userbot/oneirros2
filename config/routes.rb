@@ -4,5 +4,8 @@ Rails.application.routes.draw do
   apipie
   root 'homepage#index'
   get 'regions_view', to: 'regions_view#index'
-  resources :regions
+
+  scope 'api' do
+    resources :regions
+  end
 end
