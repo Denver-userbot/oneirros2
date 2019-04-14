@@ -13,7 +13,7 @@ class IndexTelegramBotDaemon < TelegramBotDaemon
       bot.listen do |message|
         puts "@#{message.chat.username} << #{message.text}"
 
-        if message.text == '/start'
+        if message.text == '/start' or message.text == 'help'
           bot.api.send_message(chat_id: message.chat.id, text: "Hello there ! Tell me what indice you want (med|edu|mil|dev) and the amount and i'll come back to you with the required building amount as per our last data. For example, send me 'mil 3' to get stats on Military 3.\n\nNote the data can be delayed by up to ten minutes. This bot is part of the Oneirros Project (http://oneirros.xyz:3000) and still in development. For any inquiries, please contact @EphyRaZy")
         else
           index = message.text.split(' ').first.downcase
