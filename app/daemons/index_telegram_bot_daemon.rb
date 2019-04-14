@@ -17,19 +17,23 @@ class IndexTelegramBotDaemon < TelegramBotDaemon
           level = message.text.split(' ').last.to_i
           # Detect relevant building
           case index
-          when 'med'
+          when 'med', 'medi', 'medical'
+            index = 'med'
             building = "hospital"
             display_building = "Hospitals"
             display_index = "Medical"
-          when 'mil'
+          when 'mil', 'mili', 'military', 'militaire'
+            index = 'mil'
             building = "military_base"
             display_building = "Military Bases"
             display_index = "Military"
-          when 'edu'
+          when 'edu', 'education'
+            index = 'edu'
             building = "school"
             display_building = "Schools"
             display_index = "Education"
-          when 'dev'
+          when 'dev', 'development', 'developement'
+            index = 'dev'
             building = "housing_fund"
             display_building = "Housing Fund"
             display_index = "Development"
