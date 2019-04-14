@@ -6,6 +6,8 @@ class RegionsSpider < RivalRegionsAuthedSpider
 
   def parse_authed(response, url:, data: {})
 
+    super(response, url: url, data: data)
+
   ru_map = {
         "РЕГИОН" => "name",
         "АВТ" => "is_autonomy",
@@ -72,6 +74,8 @@ class RegionsSpider < RivalRegionsAuthedSpider
 
       RivalRegionMetrics.write(rowhash)
     end
+
+    return response
   end 
 
 end

@@ -23,16 +23,19 @@ class RivalRegionsAuthedSpider < Kimurai::Base
     rivals_token = Rails.application.credentials.dig :rivals, :token
     rivals_hash = Rails.application.credentials.dig :rivals, :hash
 
+    @authed = false
+ 
     # Send request and process
     return request_to :authed_callback, url: "http://rivalregions.com/?viewer_id=#{rivals_id}&id=#{rivals_id}&access_token=#{rivals_token}&hash=#{rivals_hash}"
   end
-  
+ 
+  # Extend me 
   def parse_authed(response, url:, data: {})
-    # Override me
+    authed_check(response)
   end
 
   def authed_callback(response, url:, data: {})
-    # Do nothing for interactive mode
+    authed_check(response)
   end
 
   def authed_callback_now(response, url:, data: {})
@@ -40,15 +43,21 @@ class RivalRegionsAuthedSpider < Kimurai::Base
   end
   
   def go
+    if not @authed
+      auth
+    end
+
+    if not @authed
+      raise Exception("Can't Log In to RR")
+    end
+
     request_to :parse_authed, url: self.class.authed_url
   end
 
 
   def authed_check(response) 
     logged_out = /Session expired, please, reload the page/ =~ response.css("script").text
-    if (logged_out.nil?)
-      return true
-    end
-    return false
+    @authed = logged_out.nil?
+    return @authed
   end
 end

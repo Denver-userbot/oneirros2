@@ -1,0 +1,3 @@
+class OneirrosWorker
+
+end

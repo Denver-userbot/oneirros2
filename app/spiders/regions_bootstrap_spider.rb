@@ -5,6 +5,8 @@ class RegionsBootstrapSpider < RivalRegionsAuthedSpider
   @authed_url = "http://rivalregions.com/info/regions"
 
   def parse_authed(response, url:, data: {})
+    super(response, url, data)
+
     skipfirst = true
     response.css('tr').each do |row|
       # Skip heading
