@@ -1,4 +1,7 @@
-require 'pp'
+require 'time'
+
+require 'action_view'
+include ActionView::Helpers::DateHelper
 
 class IndexTelegramBotDaemon < TelegramBotDaemon
   def initialize
@@ -53,7 +56,9 @@ class IndexTelegramBotDaemon < TelegramBotDaemon
                  if metric["min"].nil?
                    bot.api.send_message(chat_id: message.chat.id, text: "Sorry, something went wrong with the database query.\nThis is a known bug and we're looking into fixing it.\nTry again in a moment !")
                  else
-                   bot.api.send_message(chat_id: message.chat.id, text: "According to my last data:\nMinimum Amount for #{display_index} #{level} is #{metric["min"]} #{display_building}")
+                   dt = DateTime.parse(metric["time"])
+                   timestring = distance_of_time_in_words(dt, DateTime.now, include_seconds: true)
+                   bot.api.send_message(chat_id: message.chat.id, text: "According to my last data (#{timestring} ago):\nMinimum Amount for #{display_index} #{level} is #{metric["min"]} #{display_building}")
                  end
                end
              end
