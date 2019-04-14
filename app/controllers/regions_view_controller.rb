@@ -21,6 +21,6 @@ class RegionsViewController < ApplicationController
       @results_by_id[region_id][:metrics] = metric
     end
   
-    render 'regions_view/index'
+    render 'regions/index'
   end
 end

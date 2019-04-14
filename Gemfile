@@ -21,6 +21,8 @@ gem 'babel-transpiler'
 gem 'jquery-datatables'
 gem 'apipie-rails', '~> 0.5.15'
 gem 'telegram-bot-ruby', '~> 0.8.6.1'
+gem 'chartkick', '~> 3.0.2'
+gem 'chart-js-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

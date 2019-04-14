@@ -1,7 +1,10 @@
 //= require jquery
 //= require uikit/uikit
+//= require chart.js/dist/Chart.bundle
+//= require chartkick/dist/chartkick
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
+//= require turbolinks-hacks
 //= require datatables
 //= require_tree .
