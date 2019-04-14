@@ -20,8 +20,8 @@ class RegionsController < ApplicationController
     render json: @regions, each_serializer: RivalRegionCachedSerializer
   end
 
-  api :GET, '/regions/:rivals_id', 'Get information on a specific Region'
-  param :rivals_id, Integer, :desc => "Region ID in RivalRegions", :required => true
+  api :GET, '/regions/:id', 'Get information on a specific Region'
+  param :id, String, :desc => "Region ID in RivalRegions", :required => true
   def show
     entry = RivalRegion.find(params[:id])
     render json: entry, serializer: RivalRegionSerializer
