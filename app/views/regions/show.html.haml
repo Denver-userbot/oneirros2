@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+%html
+ %head
+  = render :partial => 'partials/scripts'
+ %body
+  = render :partial => 'partials/header'
+
+  %div.uk-container.uk-container-medium.uk-padding-small
+   %div.uk-container.uk-container-medium.uk-margin-medium-bottom
+    %p.uk-text-meta.uk-padding-remove.uk-margin-remove-vertical.uk-align-left@m.uk-text-center
+     Region: 
+     = @region["name_en"]
+     = "(ID: #{@region["rivals_id"]})"
+    %p.uk-text-meta.uk-padding-remove.uk-margin-remove-vertical.uk-align-right@m.uk-text-center
+     Last data update:
+     = distance_of_time_in_words(@region["updated_at"], DateTime.now, include_seconds: true)
+     ago
+    %p.uk-text-meta.uk-padding-remove.uk-margin-remove-vertical.uk-align-right@m.uk-text-center
+     Last metrics update: 
+     = distance_of_time_in_words(DateTime.parse(@metrics["time"]), DateTime.now, include_seconds: true)
+     ago
+
+   %div.uk-section.uk-section-secondary.uk-section-small.uk-text-center.uk-flex.uk-flex-center.uk-flex-wrap-between.uk-padding
+    %div.uk-container.uk-grid-medium{"uk-grid" => ""}
+     %span.uk-child-width-expand
+      %span
+       %h4.uk-heading-divider Citizens
+       %h3.uk-align-center.uk-height-max-small
+        %strong= @metrics["citizens"]
+     %span.uk-child-width-expand
+      %span
+       %h4.uk-heading-divider Residents
+       %h3.uk-align-center.uk-height-max-small
+        %strong= @metrics["residents"]
+     %div
+     %span.uk-child-width-expand
+     %span.uk-child-width-expand
+      %span
+       %h4.uk-heading-divider Medical
+       %h3.uk-align-center.uk-height-max-small
+        %strong 
+         = @metrics["med_index"]
+         = "/ 11"
+     %span.uk-child-width-expand
+      %span
+       %h4.uk-heading-divider Military
+       %h3.uk-align-center.uk-height-max-small
+        %strong 
+         = @metrics["mil_index"]
+         = "/ 11"
+     %span.uk-child-width-expand
+      %span
+       %h4.uk-heading-divider Education
+       %h3.uk-align-center.uk-height-max-small
+        %strong 
+         = @metrics["edu_index"]
+         = "/ 11"
+     %span.uk-child-width-expand
+      %span
+       %h4.uk-heading-divider Development
+       %h3.uk-align-center.uk-height-max-small
+        %strong 
+         = @metrics["dev_index"]
+         = "/ 10"
+   %div.uk-section

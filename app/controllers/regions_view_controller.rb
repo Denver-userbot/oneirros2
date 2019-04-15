@@ -23,4 +23,11 @@ class RegionsViewController < ApplicationController
   
     render 'regions/index'
   end
+
+  def show
+    @region = RivalRegion.find(params[:id])
+    @metrics = RivalRegionMetrics.by_region(params[:id]).to_a.first
+
+    render 'regions/show'
+  end 
 end
