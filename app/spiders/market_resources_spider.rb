@@ -1,5 +1,3 @@
-require 'pp'
-
 class MarketResourcesSpider < RivalRegionsAuthedSpider
   @engine = :mechanize
   RESOURCE_LIST = [1, 2, 3, 4, 11, 15, 21, 24, 13, 20, 14, 16, 18, 22, 23]
@@ -9,9 +7,11 @@ class MarketResourcesSpider < RivalRegionsAuthedSpider
   end 
 
   def parse_resource(response, url:, data: {})
-    response.css('span .storage_buy_summ').each do |span|
-      price = span.text.squish.tr('.', '').to_i
-      RivalResourceMetrics.write({ :rivals_resource_id => data[:resource], :lowest_market_price => price })
+    if self.authed_check(response)
+      response.css('span .storage_buy_summ').each do |span|
+        price = span.text.squish.tr('.', '').to_i
+        RivalResourceMetrics.write({ :rivals_resource_id => data[:resource], :lowest_market_price => price })
+      end
     end
   end
 
