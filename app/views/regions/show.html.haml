@@ -38,28 +38,31 @@
       %span
        %h4.uk-heading-divider Medical
        %h3.uk-align-center.uk-height-max-small
-        %strong 
-         = @metrics["med_index"]
+        %strong
+         %span{"class" => get_med_index_class(@metrics["med_index"])} 
+          = @metrics["med_index"]
          = "/ 11"
      %span.uk-child-width-expand
       %span
        %h4.uk-heading-divider Military
        %h3.uk-align-center.uk-height-max-small
-        %strong 
-         = @metrics["mil_index"]
+        %strong
+         %span{"class" => get_mil_index_class(@metrics["mil_index"])}
+          = @metrics["mil_index"]
          = "/ 11"
      %span.uk-child-width-expand
       %span
        %h4.uk-heading-divider Education
        %h3.uk-align-center.uk-height-max-small
-        %strong 
-         = @metrics["edu_index"]
+        %strong
+         %span{"class" => get_edu_index_class(@metrics["edu_index"])}
+          = @metrics["edu_index"]
          = "/ 11"
      %span.uk-child-width-expand
       %span
        %h4.uk-heading-divider Development
        %h3.uk-align-center.uk-height-max-small
-        %strong 
-         = @metrics["dev_index"]
+        %strong
+         %span{"class" => get_dev_index_class(@metrics["dev_index"])}
+          = @metrics["dev_index"]
          = "/ 10"
-   %div.uk-section

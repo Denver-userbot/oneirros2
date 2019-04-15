@@ -27,11 +27,15 @@
        %td= object[:region][:name_en]
        %td= object[:metrics]["citizens"]
        %td= object[:metrics]["residents"]
-       %td= object[:metrics]["med_index"]
-       %td= object[:metrics]["mil_index"]
-       %td= object[:metrics]["edu_index"]
-       %td= object[:metrics]["dev_index"]
-       %td 
+       %td{"class" => get_med_index_class(object[:metrics]["med_index"])} 
+        = object[:metrics]["med_index"]
+       %td{"class" => get_mil_index_class(object[:metrics]["mil_index"])} 
+        = object[:metrics]["mil_index"]
+       %td{"class" => get_edu_index_class(object[:metrics]["edu_index"])} 
+        = object[:metrics]["edu_index"]
+       %td{"class" => get_dev_index_class(object[:metrics]["dev_index"])} 
+        = object[:metrics]["dev_index"]
+       %td
         = distance_of_time_in_words(DateTime.parse(object[:metrics]["time"]), DateTime.now, include_seconds: true)
         ago
  
