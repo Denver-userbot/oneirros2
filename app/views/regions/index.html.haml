@@ -15,16 +15,18 @@
      %tr
       %th Citizens
       %th Residents
-      %th Medical
-      %th Military
-      %th Education 
-      %th Development
+      %th Med
+      %th Mil
+      %th Edu 
+      %th Dev
       %th{"data-priority" => 0} Last Update
     %tbody
      - @results_by_id.values.each do |object|
       %tr
        %td= object[:id]
-       %td= object[:region][:name_en]
+       %td 
+        %a{"href" => "/regions/#{object[:id]}"}
+         = object[:region][:name_en]
        %td= object[:metrics]["citizens"]
        %td= object[:metrics]["residents"]
        %td{"class" => get_med_index_class(object[:metrics]["med_index"])} 
