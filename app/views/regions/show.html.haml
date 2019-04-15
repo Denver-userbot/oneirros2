@@ -70,23 +70,46 @@
     %div.uk-card.uk-card-body.uk-width-1-3@m
      %h4.uk-card-title{"uk-tooltip" => "Approximate Values"}
       %span.uk-label Beta
-      Loot Details
+      Looted Resources
      %ul.uk-list
       %li 
        State Cash: 
-       = "#{'%.2f' % (@loot_res["cash"] / 1000000000000)} T $$$"
+       = raw get_human_cash @loot_res["cash"]
       %li 
        State Gold: 
-       = "#{'%.2f' % (@loot_res["gold"] / 1000000000000)} T Gold"
+       = raw get_human_gold @loot_res["gold"] 
       %li 
        Oil: 
-       = "#{'%.2f' % (@loot_res["oil"] / 1000000000)} KKK bbl"
+       = raw get_human_oil @loot_res["oil"]
       %li 
        Ore: 
-       = "#{'%.2f' % (@loot_res["ore"] / 1000000000)} KKK kg"
+       = raw get_human_ore @loot_res["ore"]
       %li 
        Uranium: 
-       = "#{'%.2f' % (@loot_res["ura"] / 1000000)} KK g"
+       = raw get_human_ura @loot_res["ura"]
       %li 
        Diamonds:
-       = "#{'%.2f' % (@loot_res["dia"] / 1000)} K pcs."
+       = raw get_human_dia @loot_res["dia"]
+    %div.uk-card.uk-card-body.uk-width-1-3@m
+     %h4.uk-card-title{"uk-tooltip" => "Approximate Values"}
+      %span.uk-label Beta
+      Building Cost
+     %ul.uk-list
+      %li 
+       State Cash: 
+       = raw get_human_cash @build_res["cash"]
+      %li 
+       State Gold: 
+       = raw get_human_gold @build_res["gold"] 
+      %li 
+       Oil: 
+       = raw get_human_oil @build_res["oil"]
+      %li 
+       Ore: 
+       = raw get_human_ore @build_res["ore"]
+      %li 
+       Uranium: 
+       = raw get_human_ura @build_res["ura"]
+      %li 
+       Diamonds:
+       = raw get_human_dia @build_res["dia"]

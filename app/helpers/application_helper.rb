@@ -5,6 +5,25 @@ module ApplicationHelper
     engine.render(self, locals)
   end
 
+  def get_human_cash(value)
+    return "<strong>#{'%.2f' % (value / 1000000000000)} T$</strong>"
+  end
+  def get_human_gold(value)
+    return "<strong class='uk-text-warning'>#{'%.2f' % (value / 1000000000000)} TG</strong>"
+  end
+  def get_human_oil(value)
+    return "<strong class='uk-text-emphasis'>#{'%.2f' % (value / 1000000000)} KKK bbl</strong>"
+  end
+  def get_human_ore(value)
+    return "<strong class='uk-text-danger'>#{'%.2f' % (value / 1000000000)} KKK kg</strong>"
+  end
+  def get_human_ura(value)
+    return "<strong class='uk-text-success'>#{'%.2f' % (value / 1000000)} KK g</strong>"
+  end
+  def get_human_dia(value)
+    return "<strong class='uk-text-primary'>#{'%.2f' % (value / 1000)} K pcs.</strong>"
+  end
+
   def get_med_index_class(value)
      return case
        when value >= 8 then "uk-text-success"
