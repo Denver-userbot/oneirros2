@@ -2,17 +2,17 @@ require 'pp'
 
 module RegionCostHelper
  EMPIRICAL_FACTORS = {
-   # Cash Gold Oil Ore Diamond Uranium
+   # Cash Gold Oil Ore Diamond Uranium Scale Factor
    "hospital" =>         [ 2078.4, 40155.5, 809.6,  341.6,  0.0,     0.0 ],
    "military_base" =>    [ 2078.4, 40155.5, 809.6,  341.6,  0.0,     0.0 ],
    "school" =>           [ 2078.4, 40155.5, 809.6,  341.6,  0.0,     0.0 ],
-   "missile" =>          [ 12649.2, 965.74, 12.649, 12.649, 0.01173, 0.0 ],
-   "port"    =>          [ 12649.2, 965.74, 12.649, 12.649, 0.01173, 0.0 ],
-   "airport" =>          [ 12649.2, 965.74, 12.649, 12.649, 0.01173, 0.0 ],
-   "power_plant" =>      [ 35768.2, 341.44, 49.99,  49.99,  0.00722, 35.768 ],
-   "spaceport" =>        [ 185857,  965.74, 65.710, 49.99,  0.01173, 65.710 ],
+   "missile" =>          [ 12649.2, 965.74, 12.649, 12.649, 2.9477,  0.0 ],
+   "port"    =>          [ 12649.2, 965.74, 12.649, 12.649, 2.9477,  0.0 ],
+   "airport" =>          [ 12649.2, 965.74, 12.649, 12.649, 2.9477,  0.0 ],
+   "power_plant" =>      [ 35768.2, 341.44, 49.99,  49.99,  1.1815,  35.768 ],
+   "spaceport" =>        [ 185857,  965.74, 65.710, 49.99,  2.9477,  65.710 ],
    "housing_fund" =>     [ 65.72,  1269.78, 25.600, 10.800, 0.0,     0.0 ]
- }   
+ }  
  
  def compute_all_loot(region_metrics_hash)
    total = Hash.new
@@ -66,6 +66,8 @@ module RegionCostHelper
 
  def compute_cost_primitive(type, resource_idx, level)
    return 0 unless level > 0
-   return EMPIRICAL_FACTORS[type][resource_idx] * (1.5 + level.to_f) * (level.to_f ** 1.5)
+   return EMPIRICAL_FACTORS[type][resource_idx] * (1.5 + level.to_f) * (level.to_f ** 1.5) unless resource_idx == 4
+   # Different formulae for diamonds
+   return EMPIRICAL_FACTORS[type][resource_idx] * (1.5 + level.to_f) * (level.to_f ** 0.702)
  end
 end
