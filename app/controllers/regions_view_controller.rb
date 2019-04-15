@@ -1,6 +1,6 @@
-require 'pp'
-
 class RegionsViewController < ApplicationController 
+  include RegionCostHelper
+
   def index
     @results_by_id = Hash.new
 
@@ -27,6 +27,8 @@ class RegionsViewController < ApplicationController
   def show
     @region = RivalRegion.find(params[:id])
     @metrics = RivalRegionMetrics.by_region(params[:id]).to_a.first
+    @loot_res = compute_all_loot(@metrics) 
+    @build_res = compute_all_cost(@metrics)    
 
     render 'regions/show'
   end 
