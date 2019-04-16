@@ -31,5 +31,22 @@ class RegionsViewController < ApplicationController
     @build_res = compute_all_cost(@metrics)    
 
     render 'regions/show'
-  end 
+  end
+
+  def simulator
+    render 'regions/simulator'
+  end
+
+  def simulator_submit
+    @params = params
+
+    render 'regions/simulator'
+  end
+
+  def simulator_byregion
+    @region = RivalRegion.find(params[:id]) 
+    @metrics = RivalRegionMetrics.by_region(params[:id]).to_a.first
+
+    render 'regions/simulator'
+  end
 end
