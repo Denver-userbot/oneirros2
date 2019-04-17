@@ -68,50 +68,78 @@
          %span{"class" => get_dev_index_class(@metrics["dev_index"])}
           = @metrics["dev_index"]
          = "/ 10"
-   %div.uk-section.uk-section-muted.uk-section-small.uk-text-center.uk-flex.uk-flex-center.uk-flex-wrap-between.uk-padding
+   %div.uk-text-center.uk-flex.uk-flex-center.uk-flex-wrap.uk-padding
     %div.uk-card.uk-card-body.uk-width-1-3@m
      %h4.uk-card-title{"uk-tooltip" => "Approximate Values"}
       %span.uk-label Beta
       Looted Resources
+     %h5 
+      = raw "Total Approx. Cost: #{get_human_cash @loot_cost}"
      %ul.uk-list
       %li 
        State Cash: 
        = raw get_human_cash @loot_res["state_cash"]
+       %span.uk-text-muted 
+        = "(at #{'%.2f' % @res_prices["state_cash"]} $)"
       %li 
        State Gold: 
        = raw get_human_gold @loot_res["state_gold"] 
+       %span.uk-text-muted 
+        = "(at #{'%.2f' % @res_prices["state_gold"]} $)"
       %li 
        Oil: 
        = raw get_human_oil @loot_res["oil"]
+       %span.uk-text-muted 
+        = "(at #{'%.2f' % @res_prices["oil"]} $)"
       %li 
        Ore: 
        = raw get_human_ore @loot_res["ore"]
+       %span.uk-text-muted 
+        = "(at #{'%.2f' % @res_prices["ore"]} $)"
       %li 
        Uranium: 
        = raw get_human_ura @loot_res["ura"]
+       %span.uk-text-muted 
+        = "(at #{'%.2f' % @res_prices["ura"]} $)"
       %li 
        Diamonds:
        = raw get_human_dia @loot_res["dia"]
+       %span.uk-text-muted 
+        = "(at #{'%.2f' % (@res_prices["dia"] / 1000)} K$)"
     %div.uk-card.uk-card-body.uk-width-1-3@m
      %h4.uk-card-title{"uk-tooltip" => "Approximate Values"}
       %span.uk-label Beta
       Building Cost
+     %h5 
+      = raw "Total Approx. Cost: #{get_human_cash @region_cost}"
      %ul.uk-list
       %li 
        State Cash: 
        = raw get_human_cash @build_res["state_cash"]
+       %span.uk-text-muted 
+        = "(at #{'%.2f' % @res_prices["state_cash"]} $)"
       %li 
        State Gold: 
        = raw get_human_gold @build_res["state_gold"] 
+       %span.uk-text-muted 
+        = "(at #{'%.2f' % @res_prices["state_gold"]} $)"
       %li 
        Oil: 
        = raw get_human_oil @build_res["oil"]
+       %span.uk-text-muted 
+        = "(at #{'%.2f' % @res_prices["oil"]} $)"
       %li 
        Ore: 
        = raw get_human_ore @build_res["ore"]
+       %span.uk-text-muted 
+        = "(at #{'%.2f' % @res_prices["ore"]} $)"
       %li 
        Uranium: 
        = raw get_human_ura @build_res["ura"]
+       %span.uk-text-muted 
+        = "(at #{'%.2f' % @res_prices["ura"]} $)"
       %li 
        Diamonds:
        = raw get_human_dia @build_res["dia"]
+       %span.uk-text-muted 
+        = "(at #{'%.2f' % (@res_prices["dia"] / 1000)} K$)"

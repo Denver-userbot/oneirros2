@@ -29,6 +29,23 @@ class RegionsViewController < ApplicationController
     @metrics = RivalRegionMetrics.by_region(params[:id]).to_a.first
     @loot_res = compute_all_loot(@metrics) 
     @build_res = compute_all_cost(@metrics)    
+    @influx_prices = get_influx_prices
+
+    # init prices
+    @res_prices = @influx_prices
+    # FIXME: Determine state_cash and state_gold prices dynamically
+    @res_prices["state_cash"] = 0.7
+    @res_prices["state_gold"] = 0.35
+    
+    @region_cost = 0.0
+    RegionCostHelper::REGION_COST_RESOURCES.each do |res|
+       @region_cost += @build_res[res] * @res_prices[res]
+    end
+     
+    @loot_cost = 0.0
+    RegionCostHelper::REGION_COST_RESOURCES.each do |res|
+       @loot_cost += @loot_res[res] * @res_prices[res]
+    end
 
     render 'regions/show'
   end
@@ -37,6 +54,15 @@ class RegionsViewController < ApplicationController
     @influx_prices = get_influx_prices
     render 'regions/simulator'
   end
+  
+  def simulator_byregion
+    @influx_prices = get_influx_prices
+    @region = RivalRegion.find(params[:id]) 
+    @metrics = RivalRegionMetrics.by_region(params[:id]).to_a.first
+
+    render 'regions/simulator'
+  end
+
 
   def simulator_submit
     @params = params
@@ -52,28 +78,16 @@ class RegionsViewController < ApplicationController
     @influx_prices = get_influx_prices
   
     # init prices
-    @res_prices = Hash.new
+    @res_prices = @influx_prices
     # FIXME: Determine state_cash and state_gold prices dynamically
     @res_prices["state_cash"] = 0.7
     @res_prices["state_gold"] = 0.35
-    # Glue with prices from influx
-    @res_prices["oil"] = @influx_prices["3"].to_f
-    @res_prices["ore"] = @influx_prices["4"].to_f
-    @res_prices["dia"] = @influx_prices["15"].to_f
-    @res_prices["ura"] = @influx_prices["11"].to_f
  
     @price = 0.0
     RegionCostHelper::REGION_COST_RESOURCES.each do |res|
        @res_prices[res] = @params["price_#{res}"].to_f unless @params["price_#{res}"].to_f == 0
        @price += @simulated_cost[res] * @res_prices[res]
     end
-
-    render 'regions/simulator'
-  end
-
-  def simulator_byregion
-    @region = RivalRegion.find(params[:id]) 
-    @metrics = RivalRegionMetrics.by_region(params[:id]).to_a.first
 
     render 'regions/simulator'
   end
