@@ -7,6 +7,8 @@
 
   %div.uk-container.uk-container-medium.uk-padding-small
    %div.uk-container.uk-container-medium.uk-margin-medium-bottom
+    %a.uk-button.uk-button-primary.uk-padding-remove-vertical.uk-align-left@m{"href" => "/regions/simulator/#{@region["rivals_id"]}"}
+     Go to region simulator
     %p.uk-text.uk-padding-remove.uk-margin-remove-vertical.uk-align-left@m.uk-text-center
      Region: 
      = @region["name_en"]
@@ -74,10 +76,10 @@
      %ul.uk-list
       %li 
        State Cash: 
-       = raw get_human_cash @loot_res["cash"]
+       = raw get_human_cash @loot_res["state_cash"]
       %li 
        State Gold: 
-       = raw get_human_gold @loot_res["gold"] 
+       = raw get_human_gold @loot_res["state_gold"] 
       %li 
        Oil: 
        = raw get_human_oil @loot_res["oil"]
@@ -97,10 +99,10 @@
      %ul.uk-list
       %li 
        State Cash: 
-       = raw get_human_cash @build_res["cash"]
+       = raw get_human_cash @build_res["state_cash"]
       %li 
        State Gold: 
-       = raw get_human_gold @build_res["gold"] 
+       = raw get_human_gold @build_res["state_gold"] 
       %li 
        Oil: 
        = raw get_human_oil @build_res["oil"]

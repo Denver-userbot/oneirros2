@@ -7,8 +7,50 @@
 
  %div.uk-container.uk-container-small
   %p.uk-align-center.uk-text-center
+   %br
    %label.uk-label.uk-label-primary Beta
    This is a beta feature. Watch your steps! 
+   %br
+   %label.uk-label.uk-label-success Tip
+   Access this page from a region to get its info filled automatically  
+
+   - if not @simulated_cost.nil?
+    %div.uk-card.uk-card-body.uk-width-3-3
+     %h4.uk-card-title{"uk-tooltip" => "Approximate Values"}
+      Total Approximate Value:
+      = raw get_human_cash @price
+     %ul.uk-list
+      %li 
+       State Cash: 
+       = raw get_human_cash @simulated_cost["state_cash"]
+       %span.uk-text-meta
+        = "(at #{'%.2f' % @res_prices["state_cash"]} $/unit)"
+      %li 
+       State Gold: 
+       = raw get_human_gold @simulated_cost["state_gold"] 
+       %span.uk-text-meta
+        = "(at #{'%.2f' % @res_prices["state_gold"]} $/unit)"
+      %li 
+       Oil: 
+       = raw get_human_oil @simulated_cost["oil"]
+       %span.uk-text-meta
+        = "(at #{'%.2f' % @res_prices["oil"]} $/unit)"
+      %li 
+       Ore: 
+       = raw get_human_ore @simulated_cost["ore"]
+       %span.uk-text-meta
+        = "(at #{'%.2f' % @res_prices["ore"]} $/unit)"
+      %li 
+       Uranium: 
+       = raw get_human_ura @simulated_cost["ura"]
+       %span.uk-text-meta
+        = "(at #{'%.2f' % @res_prices["ura"]} $/unit)"
+      %li 
+       Diamonds:
+       = raw get_human_dia @simulated_cost["dia"]
+       %span.uk-text-meta
+        = "(at #{'%.2f' % @res_prices["dia"]} $/unit)"
+
 
   %div.uk-card.uk-card-secondary.uk-padding-small
    %h1.uk-card-title.uk-text-center Region Buildings
@@ -18,7 +60,7 @@
      %div
      - ["hospital", "military_base", "school", "missile", "port", "airport", "power_plant", "spaceport", "housing_fund"].each do |object|
       %div.uk-margin.uk-padding-remove-vertical
-       %label.uk-form-label.uk-text-meta= object
+       %label.uk-form-label.uk-text-meta= map_attribute_to_readable_name(object)
        %input.uk-input.uk-form-small.uk-form-width-small{"name" => "start_#{object}", "value" => "#{(@metrics[object]  unless @metrics.nil?) or (@params["start_#{object}"] unless @params.nil?)}"}
        %input.uk-input.uk-form-small.uk-form-width-small{"name" => "target_#{object}", "placeholder" => "#{(@metrics[object] unless @metrics.nil?) or (@params["start_#{object}"] unless @params.nil?)}", "value" => "#{@params["target_#{object}"] unless @params.nil?}"}
      %hr
@@ -26,5 +68,5 @@
       %h3.uk-text-muted.uk-text-center [Advanced] Custom prices for calculating pricing
       - ["state_cash", "state_gold", "oil", "ore", "ura", "dia"].each do |object|
        %div.uk-margin 
-        %label.uk-form-label.uk-text-meta= object
-        %input.uk-input.uk-form-small.uk-form-width-small{"name" => "price_#{object}"}
+        %label.uk-form-label.uk-text-meta= map_res_name_to_readable_name(object)
+        %input.uk-input.uk-form-small.uk-form-width-small{"name" => "price_#{object}", "value" => "#{@params["price_#{object}"] unless @params.nil?}", "placeholder" => "#{('%.2f' % @influx_prices[object]) unless @influx_prices.nil? or @influx_prices[object].nil?}"}

@@ -24,6 +24,17 @@ module ApplicationHelper
     return "<strong class='uk-text-primary'>#{'%.2f' % (value / 1000)} K pcs.</strong>"
   end
 
+  def map_res_name_to_readable_name(str)
+    return "Diamonds" unless str != "dia"
+    return "Uranium" unless str != "ura" 
+    return map_attribute_to_readable_name(str)
+  end
+
+  def map_attribute_to_readable_name(str)
+    return str.capitalize.tr('_', ' ')
+  end
+  
+
   def get_med_index_class(value)
      return case
        when value >= 8 then "uk-text-success"
