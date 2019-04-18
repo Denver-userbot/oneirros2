@@ -52,9 +52,10 @@
         = "(at #{'%.2f' % @res_prices["dia"]} $/unit)"
 
 
-  %div.uk-card.uk-card-secondary.uk-padding-small
+  %div.uk-card.uk-card-secondary
    %h1.uk-card-title.uk-text-center Region Buildings
-   %div.uk-card-body.uk-card-secondary-uk-margin-small
+   %p.uk-text.uk-text-meta.uk-text-center Current value, and target value
+   %div.uk-card-body.uk-card-secondary.uk-margin-small@m
     = form_tag({controller: "regions_view", action: "simulator_submit"}, method: "post", class: "uk-form-horizontal uk-text-center") do
      %input.uk-align-center.uk-button-primary.uk-button{"type" => "submit", "value" => "Calc It"}
      %div
@@ -64,8 +65,9 @@
        %input.uk-input.uk-form-small.uk-form-width-small{"name" => "start_#{object}", "value" => "#{(@metrics[object]  unless @metrics.nil?) or (@params["start_#{object}"] unless @params.nil?)}"}
        %input.uk-input.uk-form-small.uk-form-width-small{"name" => "target_#{object}", "placeholder" => "#{(@metrics[object] unless @metrics.nil?) or (@params["start_#{object}"] unless @params.nil?)}", "value" => "#{@params["target_#{object}"] unless @params.nil?}"}
      %hr
-     %div
-      %h3.uk-text-muted.uk-text-center [Advanced] Custom prices for calculating pricing
+     %label.uk-label.uk-label-danger Advanced
+     %span
+      %h3.uk-text-muted.uk-text-center Custom prices for calculating pricing
       - ["state_cash", "state_gold", "oil", "ore", "ura", "dia"].each do |object|
        %div.uk-margin 
         %label.uk-form-label.uk-text-meta= map_res_name_to_readable_name(object)

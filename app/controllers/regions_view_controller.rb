@@ -102,7 +102,7 @@ class RegionsViewController < ApplicationController
     # Glue together prices and resources
     influx_prices = Hash.new
     ["3", "4", "11", "15"].each do |resid|
-      influx_query = RivalResourceMetrics.select("MEAN(lowest_market_price)").time('4h').fill(:previous).order(time: :desc).where("rivals_resource_id = '#{resid}'").limit(1)
+      influx_query = RivalResourceMetrics.select("MEAN(lowest_market_price)").time('4h').fill(:previous).order(time: :desc).where("rivals_resource_id = '#{resid}'").limit(2)
       influx_query.each do |record|
         influx_prices[influx_res_to_attribute(resid)] = record["mean"].to_f
       end
