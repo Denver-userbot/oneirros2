@@ -10,10 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_14_141858) do
+ActiveRecord::Schema.define(version: 2019_04_18_132629) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "oneirros_companies", force: :cascade do |t|
+    t.string "name"
+  end
+
+  create_table "oneirros_companies_rival_factories", id: false, force: :cascade do |t|
+    t.bigint "rival_factory_id", null: false
+    t.bigint "oneirros_company_id", null: false
+  end
+
+  create_table "rival_factories", id: false, force: :cascade do |t|
+    t.bigint "rivals_factory_id"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "rival_factories_resources", id: false, force: :cascade do |t|
+    t.bigint "rival_factory_id", null: false
+    t.bigint "rival_resource_id", null: false
+  end
 
   create_table "rival_regions", force: :cascade do |t|
     t.bigint "rivals_id"
@@ -23,8 +44,8 @@ ActiveRecord::Schema.define(version: 2019_04_14_141858) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "rival_ressources", force: :cascade do |t|
-    t.bigint "rivals_resources_id"
+  create_table "rival_resources", id: :bigint, default: -> { "nextval('rival_ressources_id_seq'::regclass)" }, force: :cascade do |t|
+    t.bigint "rivals_resource_id"
     t.string "name"
   end
 

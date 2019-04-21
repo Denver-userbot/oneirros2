@@ -2,10 +2,17 @@
 %html
  %head
   = render :partial => 'partials/scripts'
+  %title OneiRRos - Resources
  %body
   = render :partial => 'partials/header'
 
   %div.uk-container.uk-container-large.uk-padding-large
+   %select.uk-form-small.uk-select.uk-width-1-6{"name" => "timefactor", "onchange" => "if(this.value != #{@timefactor}) { window.location.pathname = '/resources/' + this.value; }"}
+    %option{"value" => 1, "selected" => ((@timefactor == 1) ? "selected" : nil)} 12 hours
+    %option{"value" => 2, "selected" => ((@timefactor == 2) ? "selected" : nil)} 1 day
+    %option{"value" => 6, "selected" => ((@timefactor == 6) ? "selected" : nil)} 3 days
+    %option{"value" => 14, "selected" => ((@timefactor == 14) ? "selected" : nil)} 1 week
+    %option{"value" => 28, "selected" => ((@timefactor == 28) ? "selected" : nil)} 2 weeks
    %button.uk-button{"onclick" => "UIkit.accordion($('#resources-accordion-base')).toggle(0, true)"} Base Resources
    %button.uk-button{"onclick" => "UIkit.accordion($('#resources-accordion-base')).toggle(1, true)"} Moon Resources
    %button.uk-button{"onclick" => "UIkit.accordion($('#resources-accordion-base')).toggle(2, true)"} Weapons
@@ -38,6 +45,8 @@
         = line_chart [ { name: "Missiles", data: @graphdata["14"] } ], thousands: "," 
        %div.uk-width-1-3@m
         = line_chart [ { name: "Bombers", data: @graphdata["16"] } ], thousands: "," 
+       %div.uk-width-1-3@m
+        = line_chart [ { name: "Battleships", data: @graphdata["18"] } ], thousands: "," 
        %div.uk-width-1-3@m
         = line_chart [ { name: "Lunar Tanks", data: @graphdata["22"] } ], thousands: "," 
        %div.uk-width-1-3@m

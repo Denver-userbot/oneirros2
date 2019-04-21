@@ -8,8 +8,12 @@ class MarketResourcesSpider < RivalRegionsAuthedSpider
 
   def parse_resource(response, url:, data: {})
     if self.authed_check(response)
-      response.css('span .storage_buy_summ').each do |span|
-        price = span.text.squish.tr('.', '').to_i
+      number_sent = 0
+      response.css('#list_tbody tr.list_link').each do |list|
+        rows = list.css('td')
+        price = rows[3].attributes['rat'].text.to_i 
+        return unless number_sent < 5
+        number_sent += 1
         RivalResourceMetrics.write({ :rivals_resource_id => data[:resource], :lowest_market_price => price })
       end
     end

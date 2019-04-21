@@ -8,8 +8,12 @@ Rails.application.routes.draw do
   get 'regions/simulator', to: 'regions_view#simulator'
   post 'regions/simulator', to: 'regions_view#simulator_submit'
   get 'regions/simulator/:id', to: 'regions_view#simulator_byregion'
+
   get 'regions/:id', to: 'regions_view#show'
+
   get 'resources', to: 'resources_view#index'
+  get 'resources/predict', to: 'resources_view#predict'
+  get 'resources/:timefactor', to: 'resources_view#index'
 
   scope 'api' do
     resources :regions
