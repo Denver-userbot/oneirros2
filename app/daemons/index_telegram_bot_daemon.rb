@@ -11,17 +11,21 @@ class IndexTelegramBotDaemon < TelegramBotDaemon
   def run 
     Telegram::Bot::Client.run(@bot_token) do |bot|
       bot.listen do |message|
-        puts "[#{message.from.first_name}] @#{message.from.username} << #{message.text}"
-
+	react = true
         if message.text.nil? or message.text.empty?
           # Sticker or other
-        elsif message.text == '/start' or message.text == 'help'
+        elsif (message.text == '/start' or message.text == 'help') and not message.chat.type == "group"
           bot.api.send_message(chat_id: message.chat.id, text: "Hello there ! Tell me what indice you want (med|edu|mil|dev) and the amount and i'll come back to you with the required building amount as per our last data. For example, send me 'mil 3' to get stats on Military 3.\n\nNote the data can be delayed by up to ten minutes. This bot is part of the Oneirros Project (http://oneirros.xyz:3000) and still in development. For any inquiries, please contact @EphyRaZy")
         else
-          captures = message.text.match(/^([[:alpha:]]+)[[:blank:]]*([[:digit:]]+)/)
+          captures = message.text.match(/^\/?([[:alpha:]]+)[[:blank:]]*([[:digit:]]+)/)
+          if (message.chat.type == "group") and message.text.match(/^\//).nil? 
+            react = false
+          end
+
+
           if captures.nil?
-            bot.api.send_message(chat_id: message.chat.id, text: "Sorry, I didn't get that..")
-          else        
+            bot.api.send_message(chat_id: message.chat.id, text: "Sorry, I didn't get that..") unless message.chat.type == "group"
+          elsif react
   
             index = captures[1].downcase.slice(0, 3)
             level = captures[2].to_i
@@ -50,14 +54,14 @@ class IndexTelegramBotDaemon < TelegramBotDaemon
               display_index = "Development"
             end
 
-            if building.nil? 
-               bot.api.send_message(chat_id: message.chat.id, text: "Sorry, I don't recognize that indice. Type /start for usage information.")
+            if building.nil?
+               bot.api.send_message(chat_id: message.chat.id, text: "Sorry, I don't recognize that indice. Type /start for usage information.") unless message.chat.type == "group"
             elsif level < 1 or level > 10
                bot.api.send_message(chat_id: message.chat.id, text: "Please enter an indice level from 1 to 10. Type /start for usage information.")
 	    else
                found = false
                # Query influx for data
-               RivalRegionMetrics.all.select("#{index}_index", :rivals_id, "min(#{building})").where("#{index}_index = #{level}").time('5m').fill(:none).order(time: :desc).limit(3).each do |metric|
+               RivalRegionMetrics.all.select("#{index}_index", :rivals_id, "min(#{building})").where("#{index}_index = #{level} AND time > now() - 1h").time('5m').fill(:none).order(time: :desc).limit(3).each do |metric|
                  if not found 
                    found = true
 
@@ -78,6 +82,10 @@ class IndexTelegramBotDaemon < TelegramBotDaemon
           end
 
         end
+      end
+
+      if react or not message.chat.type == "group" 
+        puts "[#{message.from.first_name}] @#{message.from.username} << #{message.text}"
       end
     end
   end

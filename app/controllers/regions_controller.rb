@@ -13,7 +13,7 @@ class RegionsController < ApplicationController
     end
 
     # Also query last region metrics in bulk
-    RivalRegionMetrics.all.group(:rivals_id).order(time: :desc).each do |metric|
+    RivalRegionMetrics.all.where("time > now() - 1h").group(:rivals_id).order(time: :desc).each do |metric|
       merger[metric["rivals_id"].to_i].metrics_cached = metric
     end 
     

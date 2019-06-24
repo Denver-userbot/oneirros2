@@ -15,7 +15,7 @@ class RegionsViewController < ApplicationController
     end
 
     # Query Influx in Bulk and merge
-    RivalRegionMetrics.all.group(:rivals_id).order(time: :desc).each do |metric|
+    RivalRegionMetrics.all.where("time > now() - 1h").group(:rivals_id).order(time: :desc).each do |metric|
       region_id = metric["rivals_id"].to_i
 
       @results_by_id[region_id][:metrics] = metric

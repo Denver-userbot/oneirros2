@@ -7,6 +7,7 @@ gem 'rails', '~> 5.2.3'
 gem 'pg', '~> 1.1.4'
 gem 'puma', '~> 3.12.1'
 gem 'influxer', '~> 1.1.6'
+gem 'influxdb'
 gem 'kimurai', '~> 1.4.0'
 gem 'rufus-scheduler', '~> 3.5.2'
 gem 'haml', '~> 5.0.4'
@@ -23,6 +24,7 @@ gem 'apipie-rails', '~> 0.5.15'
 gem 'telegram-bot-ruby', '~> 0.8.6.1'
 gem 'chartkick', '~> 3.0.2'
 gem 'chart-js-rails'
+gem 'descriptive_statistics'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+%html
+ %head
+  = render :partial => 'partials/scripts'
+  %title OneiRRos - Resources
+ %body
+  = render :partial => 'partials/header'
+  %div.uk-grid.large{"uk-grid" => ""}
+   %div.uk-width-1-2@m
+    = line_chart [ { name: "Oil", data: @baseseries[3], color: '#000000' }, { name: "Prediction", data: @predicted["oil"], color: '#2771e8' } ], thousands: ",", min: (@coefs["oil"][:min]*0.9).floor, max: (@coefs["oil"][:max]*1.1).floor+1
+   %div.uk-width-1-2@m
+    = line_chart [ { name: "Ore", data: @baseseries[4], color: '#c60b0b' }, { name: "Prediction", data: @predicted["ore"], color: '#2771e8' } ], thousands: "," ,min: (@coefs["ore"][:min]*0.9).floor, max: (@coefs["ore"][:max]*1.1).floor+1
+   %div.uk-width-1-2@m
+    = line_chart [ { name: "Uranium", data: @baseseries[11], color: '#48bc00' }, { name: "Prediction", data: @predicted["uranium"], color: '#2771e8' } ], thousands: ",", min: (@coefs["uranium"][:min]*0.9).floor, max: (@coefs["uranium"][:max]*1.1).floor+1 
+   %div.uk-width-1-2@m
+    = line_chart [ { name: "Diamonds", data: @baseseries[15], color: '#07b2af' }, { name: "Prediction", data: @predicted["diamonds"], color: '#2771e8' } ], thousands: ",", min: (@coefs["diamonds"][:min]*0.9).floor, max: (@coefs["diamonds"][:max]*1.1).floor+1
+   
