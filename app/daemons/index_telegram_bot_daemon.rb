@@ -8,14 +8,28 @@ class IndexTelegramBotDaemon < TelegramBotDaemon
     @bot_token = Rails.application.credentials.dig(:telegram, :bots, :index_token)
   end
 
-  def run 
+  def run
+      begin
+        runonce
+      rescue e
+        puts 'Restarting bot because reasons'
+      end
+  end
+
+  def runonce 
     Telegram::Bot::Client.run(@bot_token) do |bot|
       bot.listen do |message|
+        puts "[DEBUG] [#{message.chat.type}:#{message.chat.id}] <#{message.from.first_name} @#{message.from.username}> #{message.text}"
+
 	react = true
         if message.text.nil? or message.text.empty?
           # Sticker or other
         elsif (message.text == '/start' or message.text == 'help') and not message.chat.type == "group"
-          bot.api.send_message(chat_id: message.chat.id, text: "Hello there ! Tell me what indice you want (med|edu|mil|dev) and the amount and i'll come back to you with the required building amount as per our last data. For example, send me 'mil 3' to get stats on Military 3.\n\nNote the data can be delayed by up to ten minutes. This bot is part of the Oneirros Project (http://oneirros.xyz:3000) and still in development. For any inquiries, please contact @EphyRaZy")
+          begin
+            bot.api.send_message(chat_id: message.chat.id, text: "Hello there ! Tell me what indice you want (med|edu|mil|dev) and the amount and i'll come back to you with the required building amount as per our last data. For example, send me 'mil 3' to get stats on Military 3.\n\nNote the data can be delayed by up to ten minutes. This bot is part of the Oneirros Project (http://oneirros.xyz:3000) and still in development. For any inquiries, please contact @EphyRaZy")
+          rescue e
+            puts "Couldn't send message"
+          end
         else
           captures = message.text.match(/^\/?([[:alpha:]]+)[[:blank:]]*([[:digit:]]+)/)
           if (message.chat.type == "group") and message.text.match(/^\//).nil? 
@@ -24,7 +38,11 @@ class IndexTelegramBotDaemon < TelegramBotDaemon
 
 
           if captures.nil?
-            bot.api.send_message(chat_id: message.chat.id, text: "Sorry, I didn't get that..") unless message.chat.type == "group"
+            begin
+              bot.api.send_message(chat_id: message.chat.id, text: "Sorry, I didn't get that..") unless message.chat.type == "group"
+            rescue e
+              puts "Couldn't send message"
+            end
           elsif react
   
             index = captures[1].downcase.slice(0, 3)
@@ -55,9 +73,17 @@ class IndexTelegramBotDaemon < TelegramBotDaemon
             end
 
             if building.nil?
-               bot.api.send_message(chat_id: message.chat.id, text: "Sorry, I don't recognize that indice. Type /start for usage information.") unless message.chat.type == "group"
+               begin
+                 bot.api.send_message(chat_id: message.chat.id, text: "Sorry, I don't recognize that indice. Type /start for usage information.") unless message.chat.type == "group"
+               rescue e
+                 puts "Couldn't send message"
+               end
             elsif level < 1 or level > 10
-               bot.api.send_message(chat_id: message.chat.id, text: "Please enter an indice level from 1 to 10. Type /start for usage information.")
+               begin
+                 bot.api.send_message(chat_id: message.chat.id, text: "Please enter an indice level from 1 to 10. Type /start for usage information.")
+               rescue e
+                 puts "Couln't send message"
+               end
 	    else
                found = false
                # Query influx for data
@@ -66,17 +92,29 @@ class IndexTelegramBotDaemon < TelegramBotDaemon
                    found = true
 
                    if metric["min"].nil?
-                     bot.api.send_message(chat_id: message.chat.id, text: "Sorry, something went wrong with the database query.\nThis is a known bug and we're looking into fixing it.\nTry again in a moment !")
+                     begin
+                       bot.api.send_message(chat_id: message.chat.id, text: "Sorry, something went wrong with the database query.\nThis is a known bug and we're looking into fixing it.\nTry again in a moment !")
+                     rescue e
+                       puts "Couldn't send message"
+                     end
                    else
                      dt = DateTime.parse(metric["time"])
                      timestring = distance_of_time_in_words(dt, DateTime.now, include_seconds: true)
-                     bot.api.send_message(chat_id: message.chat.id, text: "According to my last data (#{timestring} ago):\nMinimum Amount for #{display_index} #{level} is #{metric["min"]} #{display_building}")
+                     begin
+                       bot.api.send_message(chat_id: message.chat.id, text: "According to my last data (#{timestring} ago):\nMinimum Amount for #{display_index} #{level} is #{metric["min"]} #{display_building}")
+                     rescue e
+                       puts "Couldn't send message"
+                     end
                      end
                    end
                end
 
                if not found
-                 bot.api.send_message(chat_id: message.chat.id, text: "Sorry, no recent data found. This likely means background data process crashed. Try again later !")
+                 begin
+                   bot.api.send_message(chat_id: message.chat.id, text: "Sorry, no recent data found. This likely means background data process crashed. Try again later !")
+                 rescue e
+                   puts "Couldn't send message"
+                 end
                end
             end
           end
