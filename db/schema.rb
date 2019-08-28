@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_18_132629) do
+ActiveRecord::Schema.define(version: 2019_06_24_100758) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,14 @@ ActiveRecord::Schema.define(version: 2019_04_18_132629) do
   create_table "rival_resources", id: :bigint, default: -> { "nextval('rival_ressources_id_seq'::regclass)" }, force: :cascade do |t|
     t.bigint "rivals_resource_id"
     t.string "name"
+  end
+
+  create_table "rival_wars", force: :cascade do |t|
+    t.bigint "rivals_id"
+    t.bigint "attacking_region"
+    t.bigint "defending_region"
+    t.bigint "wallsnapshot"
+    t.integer "wartype"
   end
 
 end
