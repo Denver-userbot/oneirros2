@@ -19,7 +19,7 @@ class IndexTelegramBotDaemon < TelegramBotDaemon
   def runonce 
     Telegram::Bot::Client.run(@bot_token) do |bot|
       bot.listen do |message|
-        puts "[DEBUG] [#{message.chat.type}:#{message.chat.id}] <#{message.from.first_name} @#{message.from.username}> #{message.text}"
+        #puts "[DEBUG] [#{message.chat.type}:#{message.chat.id}] <#{message.from.first_name} @#{message.from.username}> #{message.text}"
 
 	react = true
         if message.text.nil? or message.text.empty?
